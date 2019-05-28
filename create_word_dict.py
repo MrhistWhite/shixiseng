@@ -3,7 +3,7 @@ from fontTools.ttLib import TTFont
 
 # 字符加密破解字典
 def get_word_dict(url):
-    update = time.localtime(os.stat(r"C:/Users/Neo/Desktop/DataDream/project/Shixiseng/font.xml").st_mtime)
+    update = time.localtime(os.stat(r"自定义文件目录/font.xml").st_mtime)
     now = time.localtime()
     f = lambda x: time.strftime('%Y-%m-%d', x)
 
