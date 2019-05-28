@@ -3,7 +3,7 @@ from lxml import etree
 
 class shixiseng_crawl():
     def __init__(self, city, word_dict, keyword):
-        db = pymysql.connect('localhost', 'root', '54lykjljx2', 'recruitment', charset='utf8')
+        db = pymysql.connect('localhost', 'root', 你的数据库密码, 'recruitment', charset='utf8')
         self.c = city
         self.cur = db.cursor()
         self.wd = word_dict
