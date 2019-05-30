@@ -12,14 +12,9 @@ def get_word_dict(url):
         print('--- 字符串开始更新 ---')
         req = requests.get(url)
         text = req.text
+        text1 = re.findall('src: url\(".*"\)', text)[0]
+        fonts_after = re.findall('base64,(.*)"',text1)[0]
 
-        try:  # 使用正则获取字体信息
-            pattern1 = 'base64.*=='  # 字体末尾有时为'=='
-            fonts = re.findall(pattern1, text)[0]
-        except:
-            pattern2 = 'base64.*='  # 字体末尾有时为'='
-            fonts = re.findall(pattern2, text)[0]
-        fonts_after = re.split(r"base64,", fonts)[1]  # 去除获取到的字符串前面的'base64,'
         if fonts_after:
             base_font = base64.b64decode(fonts_after)  # 使用base64库对字体信息进行解析
             with open("new.woff", 'wb') as f:
