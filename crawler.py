@@ -1,9 +1,10 @@
 import pymysql, requests, re, random
 from lxml import etree
+import datetime
 
 class shixiseng_crawl():
     def __init__(self, city, word_dict, keyword):
-        db = pymysql.connect('localhost', 'root', 你的数据库密码, 'recruitment', charset='utf8')
+        db = pymysql.connect('localhost', 'root', '54lykjljx2', 'recruitment', charset='utf8')
         self.c = city
         self.cur = db.cursor()
         self.wd = word_dict
@@ -11,7 +12,7 @@ class shixiseng_crawl():
         self.count = 0  # 职位计数
         self.city_count = 1  # 城市计数
         self.keyword = keyword
-        self.update = 1  # 更新标志，若该检索字段无更新则为0.
+        self.update = 0  # 更新计数
 
     def walk_pages(self):
 
@@ -24,8 +25,8 @@ class shixiseng_crawl():
 
             for i in range(1, page + 1):
 
-                if self.update == 0:
-                    self.update = 1
+                if self.update == 999:
+                    self.update = 0
                     break
 
                 print('开始采集第 %d 个城市的第 %d 页，共 %d 页' % (self.city_count, i, page))
@@ -46,27 +47,24 @@ class shixiseng_crawl():
         for url in url_list:
 
             url = 'https://www.shixiseng.com' + url
+
+            # 此部分是用来更新每天的数据。如果当天没有新的职位信息则停止采集
+
+            if self.keyword == '数据':
+                sql = """select url from shixiseng where url = '%s'""" % (url)
+                self.cur.execute(sql)
+                data = self.cur.fetchall()
+                if len(data) != 0:
+                    continue
+                else:
+                    self.update += 1
+                    print('*' * 60)
+                    print('当天已更新 %d 条记录' % self.update)
+                    print('*' * 60)
+
             req = requests.get(url, headers=self.get_ua())
             text = req.text
             html = etree.HTML(text)
-
-            sql = """select url from shixiseng where url = '%s'""" % (url)
-            self.cur.execute(sql)
-            data = self.cur.fetchall()
-            if len(data) != 0:
-
-                # 此语句是用来更新每天的数据。如果当天没有新的职位信息则停止采集
-                if self.keyword == '数据分析':
-                    print('*' * 60)
-                    print('当天无更新')
-                    print('*' * 60)
-                    self.update = 0
-                    break
-
-                print('*' * 60)
-                print('记录已存在')
-                print('*' * 60)
-                continue
 
             try:
                 salary = html.xpath('//div[@class="job_msg"]/span[@class="job_money cutom_font"]/text()')[0]
@@ -91,10 +89,10 @@ class shixiseng_crawl():
                 duration = self.convert(duration)
 
                 # 插入数据库
-                sql = """insert into shixiseng (salary, duty, position, degree, jd, duration, job_name, company, com_detail, url, keyword)
-                         values ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')         
+                sql = """insert into shixiseng (salary, duty, position, degree, jd, duration, job_name, company, com_detail, url, keyword, time)
+                         values ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s','%s')         
                 """ % (
-                salary, duty, position, degree, jd, duration, job_name, company, com_detail, req.url, self.keyword)
+                salary, duty, position, degree, jd, duration, job_name, company, com_detail, req.url, self.keyword, datetime.datetime.now())
                 try:
                     self.cur.execute(sql)
                     self.db.commit()
