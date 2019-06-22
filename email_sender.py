@@ -11,10 +11,13 @@ def sendEmail(data):
     mail_pass = "***"  # 授权密码
 
     sender = '***@163.com'  # 发件人邮箱
-    receivers = ['***@163.com']  # 接收邮件的邮箱
+    receivers = ['***@163.com']  # 接收邮箱
 
-    content_all = data.to_html(escape=False,index=False)
-    content_link = data.iloc[:,[5,8]].to_html()
+    dl = list(data.columns)
+    dl.remove('url')
+
+    content_all = data[dl].to_html(escape=False,index=False)
+    content_link = data[['job_name','url']].to_html()
     content1 = re.findall('<td>(?!http)(.*?)</td>',content_link)
     content2 = re.findall('<td>(http.*?)</td>',content_link)
     for i in range(len(data)):
