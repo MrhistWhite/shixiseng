@@ -22,9 +22,6 @@ def sendEmail(data):
         regex = """<td>{}</td>""".format(content2[i])
         content_all = re.sub(regex,rep,content_all)
 
-    with open(r'C:\Users\Neo\Desktop\test1.txt', 'w') as f:
-        f.write(content_all)
-
     title = str(datetime.date.today()) + ' 新增职位 ' + str(data.shape[0]) + ' 个' # 邮件主题
     message = MIMEText(content_all, 'html', 'utf-8')  # 内容, 格式, 编码
     message['From'] = "{}".format(sender)
