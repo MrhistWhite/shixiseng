@@ -9,5 +9,5 @@
 - 主函数  
 ## email_sender模块
 - 发送邮件的模块  
-最终完成的效果如图：  
+## 最终完成效果  
 ![image](https://github.com/MrhistWhite/shixiseng/blob/master/add_img/final.jpg)
