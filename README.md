@@ -6,4 +6,4 @@
 **main** 文件为主函数  
 **email_sender** 模块为发送邮件的模块  
 最终完成的效果如图：  
-![image](https://github.com/MrhistWhite/shixiseng/blob/master/add_img/final.png)
+![image](https://github.com/MrhistWhite/shixiseng/blob/master/add_img/final.jpg)
