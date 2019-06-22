@@ -7,11 +7,11 @@ def sendEmail(data):
 
     # 第三方 SMTP 服务
     mail_host = "smtp.163.com"  # SMTP服务器
-    mail_user = "wshao0904@163.com"  # 用户名
-    mail_pass = "welcome2dow"  # 授权密码，非登录密码
+    mail_user = "***@163.com"  # 用户名
+    mail_pass = "***"  # 授权密码
 
-    sender = 'wshao0904@163.com'  # 发件人邮箱
-    receivers = ['wshao0904@163.com']  # 接收邮件
+    sender = '***@163.com'  # 发件人邮箱
+    receivers = ['***@163.com']  # 接收邮件的邮箱
 
     content_all = data.to_html(escape=False,index=False)
     content_link = data.iloc[:,[5,8]].to_html()
