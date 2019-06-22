@@ -28,6 +28,6 @@ if __name__ == '__main__':
         col = list(range(1,11))
         col.remove(5)
         data = data.iloc[:,col]
-        data.columns = ['salary','duty','position','degree','duration','job_name','company','com_detail','url']
+        data.columns = ['salary','duty','position','degree','duration','url','company','com_detail','job_name']
         sendEmail(data)
     intern.close_db()
