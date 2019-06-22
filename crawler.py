@@ -4,7 +4,7 @@ import datetime
 
 class shixiseng_crawl():
     def __init__(self, city, word_dict, keyword):
-        db = pymysql.connect('localhost', 'root', '54lykjljx2', 'recruitment', charset='utf8')
+        db = pymysql.connect('你的主机', '你的用户名', '你的密码', 'recruitment', charset='utf8')
         self.c = city
         self.cur = db.cursor()
         self.wd = word_dict
