@@ -3,7 +3,7 @@
 ![image](https://github.com/MrhistWhite/shixiseng/blob/master/add_img/shixiseng_discription.png)
 **crawler** 模块为爬虫的主体模块，结合数据采集与清洗功能于一体  
 **create_word_dict** 模块为破解字体加密的模块，实习僧的前端页面中的反爬措施对数据采集造成了障碍，需要先得到网站使用的字体映射来还原数据  
-**main** 文件为主函数
-**email_sender** 模块为发送邮件的模块
-最终完成的效果如图：
-![image](https://github.com/MrhistWhite/shixiseng/blob/master/add_img/shixiseng_discription.png)
+**main** 文件为主函数  
+**email_sender** 模块为发送邮件的模块  
+最终完成的效果如图：  
+![image](https://github.com/MrhistWhite/shixiseng/blob/master/add_img/final.png)
